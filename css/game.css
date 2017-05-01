@@ -1,0 +1,29 @@
+body {
+    text-align: center;
+    background: url('../assets/pizzapixelbg.png') repeat;
+    font-family: 'Press Start 2P', cursive;
+}
+
+#title {
+    margin: 20px 0;
+}
+
+#title span {
+    text-align: center;
+    color: #ffffff;
+    font-size: 12px;
+    text-shadow: 0 2px 0 #2B547E;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px 10px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webket-border-radius: 10px;
+}
+
+#game-canvas {
+    margin: auto auto;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webket-border-radius: 8px;
+}
