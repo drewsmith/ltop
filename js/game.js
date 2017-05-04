@@ -1,3 +1,5 @@
+require('../css/game.css');
+
 //canvas variables
 var canvas = document.getElementById('game-canvas');
 var ctx = canvas.getContext('2d');
@@ -14,49 +16,93 @@ sky.src = 'assets/sky.png';
 var platform = new Image();
 platform.src = 'assets/platform.png';
 
+var oliveImg = new Image();
+oliveImg.src = 'assets/olive.png';
+
+var wholePizza = new Image();
+wholePizza.src = 'assets/wholepizza.png';
+
 var continueAnimating = true;
 var score = 0;
 
-// tower variables
-var towerWidth = 50;
-var towerHeight = 160;
-var towerSpeed = 10;
-
 var tower = {
     x: 0,
-    y: canvas.height - towerHeight,
-    width: towerWidth,
-    height: towerHeight,
-    towerSpeed: towerSpeed
+    height: 160,
+    width: 50,
+    y: canvas.height - 160,
+    towerSpeed: 10
 }
-
-// slice variables
-var sliceWidth = 30;
-var sliceHeight = 30;
-var totalslices = 10;
 
 var slices = [];
-var speeds = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6];
+var olives = [];
+var pizzas = [];
 
-for (var i = 0; i < totalslices; i++) {
-    addslice();
-}
-
-function addslice() {
-    var slice = {
-        width: sliceWidth,
-        height: sliceHeight,
-        points: 5
+class Topping {
+    constructor() {
+        this.x = 0;
+        this.y = 0;
+        this.speed = 0;
+        this.width = 0;
+        this.height = 0;
+        this.points = 0;
+        this.speeds = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6];
     }
-    resetslice(slice);
-    slices.push(slice);
+    reset() {
+        this.x = Math.random() * (canvas.width - this.width);
+        this.y = 15 + Math.random() * 30;
+        let randomSpeed = this.speeds[Math.floor(Math.random() * this.speeds.length)];
+        this.speed = randomSpeed + Math.random();
+    }
+    checkCollision(other) {
+        if (this.isColliding(this, tower)) {
+            score += this.points;
+            this.reset();
+        }
+
+        this.y += this.speed;
+        if (this.y > canvas.height) {
+            this.reset();
+        }
+    }
+    isColliding(a, b) {
+        return !(b.x > a.x + a.width || b.x + b.width < a.x || b.y > a.y + a.height || b.y + b.height < a.y);
+    }
+    draw() {
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    }
 }
 
-function resetslice(slice) {
-    slice.x = Math.random() * (canvas.width - sliceWidth);
-    slice.y = 15 + Math.random() * 30;
-    var randomSpeed = speeds[Math.floor(Math.random() * speeds.length)];
-    slice.speed = randomSpeed + Math.random();
+class Slice extends Topping {
+    constructor() {
+        super();
+        this.width = 30;
+        this.height = 30;
+        this.points = 5;
+        this.img = pizzaSlice;
+        this.reset();
+    }
+}
+
+class Olive extends Topping {
+    constructor() {
+        super();
+        this.width = 20;
+        this.height = 20;
+        this.points = -5;
+        this.img = oliveImg;
+        this.reset();
+    }
+}
+
+class Pizza extends Topping {
+    constructor() {
+        super();
+        this.width = 50;
+        this.height = 30;
+        this.points = 25;
+        this.img = wholePizza;
+        this.reset();
+    }
 }
 
 document.onkeydown = function(event) {
@@ -74,32 +120,24 @@ document.onkeydown = function(event) {
         if (tower.x <= 0) {
             tower.x = 0;
         }
+    } else if (event.keyCode == 80) {
+        continueAnimating = false;
+    } else if (event.keyCode == 83) {
+        continueAnimating = true;
+        animate();
     }
 }
-
 
 function animate() {
     if (continueAnimating) {
         requestAnimationFrame(animate);
     }
 
-    slices.forEach(function(slice) {
-        if (isColliding(slice, tower)) {
-            score += slice.points;
-            resetslice(slice);
-        }
-
-        slice.y += slice.speed;
-        if (slice.y > canvas.height) {
-            resetslice(slice);
-        }
-    });
+    slices.forEach(slice => slice.checkCollision(tower));
+    olives.forEach(olive => olive.checkCollision(tower));
+    pizzas.forEach(pizza => pizza.checkCollision(tower));
 
     drawAll();
-}
-
-function isColliding(a, b) {
-    return !(b.x > a.x + a.width || b.x + b.width < a.x || b.y > a.y + a.height || b.y + b.height < a.y);
 }
 
 function drawAll() {
@@ -108,9 +146,9 @@ function drawAll() {
     ctx.drawImage(platform, 0, (canvas.height - 20), canvas.width, 20);
     ctx.drawImage(towerImage, tower.x, tower.y, tower.width, tower.height);
 
-    slices.forEach(function(slice) {
-        ctx.drawImage(pizzaSlice, slice.x, slice.y, slice.width, slice.height);
-    });
+    slices.forEach(slice => slice.draw());
+    olives.forEach(olive => olive.draw());
+    pizzas.forEach(pizza => pizza.draw());
 
     ctx.font = "bold 12px 'Press Start 2P'";
     ctx.fillStyle = 'black';
@@ -118,7 +156,9 @@ function drawAll() {
 }
 
 (function startGame() {
-    slices.forEach(resetslice);
+    slices = Array.from(new Array(10), () => new Slice());
+    olives = Array.from(new Array(10), () => new Olive());
+    pizzas = Array.from(new Array(3), () => new Pizza());
+    canvas.focus();
     animate();
-
 })();

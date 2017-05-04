@@ -1,6 +1,6 @@
 body {
     text-align: center;
-    background: url('../assets/pizzapixelbg.png') repeat;
+    background: #222;
     font-family: 'Press Start 2P', cursive;
 }
 
@@ -12,9 +12,9 @@ body {
     text-align: center;
     color: #ffffff;
     font-size: 12px;
-    text-shadow: 0 2px 0 #2B547E;
-    font-weight: 700;
-    background: rgba(255, 255, 255, 0.2);
+    text-shadow: 0 2px 0 #000000;
+    font-weight: 200 !important;
+    /*background: rgba(255, 255, 255, 0.2);*/
     padding: 5px 10px;
     border-radius: 10px;
     -moz-border-radius: 10px;
@@ -23,6 +23,7 @@ body {
 
 #game-canvas {
     margin: auto auto;
+    border: 8px solid #111;
     border-radius: 8px;
     -moz-border-radius: 8px;
     -webket-border-radius: 8px;
