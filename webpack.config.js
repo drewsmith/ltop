@@ -23,9 +23,15 @@ module.exports = {
         }, {
             test: /\.(jpe?g|png|gif)$/i,
             loader: 'file-loader?name=/img/[name].[ext]'
+        }, {
+            test: /\.less$/,
+            loader: ExtractTextPlugin.extract({ fallback: "style-loader", use: "css-loader!less-loader" })
         }]
     },
     plugins: [
         new ExtractTextPlugin('bundle.css')
-    ]
+    ],
+    devServer: {
+        contentBase: "./src"
+    }
 };

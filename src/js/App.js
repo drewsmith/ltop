@@ -1,4 +1,4 @@
-require('../css/game.css')
+require('../less/game.less')
 
 import Game from './Game'
 
