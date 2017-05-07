@@ -31,7 +31,10 @@ export default class Game {
             x: 0,
             y: (this.canvas.height - 20)
         }
+        this.damage = 0
+        this.alive = true
         this.tower = new Tower(this.canvas.width, this.canvas.height)
+        this.init()
     }
     requestFrame() {
         this.moveAerials()
@@ -50,7 +53,8 @@ export default class Game {
                 })
             }
             if (Utils.isColliding(aerial, this.tower)) {
-                this.score -= 5
+                this.damage += 1
+                this.alive = (this.damage <= 10)
                 aerial.setPosition()
             } else {
                 aerial.move()
@@ -71,7 +75,21 @@ export default class Game {
     drawScore() {
         this.context.font = "bold 12px 'Press Start 2P'";
         this.context.fillStyle = 'black';
-        this.context.fillText('Score: ' + this.score, 10, 20);
+        this.context.fillText(`Score: ${this.score}`, 10, 20);
+    }
+    formatDamage() {
+        return this.damage >= 10 ? '0%' : `${(10 - this.damage)}0%`
+    }
+    drawDamage() {
+        this.context.font = "bold 12px 'Press Start 2P'"
+        if (this.damage < 4) {
+            this.context.fillStyle = 'green'
+        } else if (this.damage < 7) {
+            this.context.fillStyle = 'yellow'
+        } else {
+            this.context.fillStyle = 'red'
+        }
+        this.context.fillText(`Health: ${this.formatDamage()}`, 10, 40)
     }
     drawLasers() {
         this.lasers.forEach(laser => laser.draw(this.context))
@@ -86,13 +104,22 @@ export default class Game {
     drawAerials() {
         this.aerials.forEach(aerial => aerial.draw(this.context));
     }
+    drawGameOver() {
+        this.context.font = "bold 16px 'Press Start 2P'";
+        this.context.fillText('Game Over Man!', (this.canvas.width - 100) / 2, (this.canvas.height - 20) / 2, 100, 20);
+    }
     draw() {
         this.clearCanvas()
         this.drawBackground()
-        this.drawTower()
-        this.drawAerials()
         this.drawScore()
-        this.drawLasers()
+        if (this.alive) {
+            this.drawTower()
+            this.drawAerials()
+            this.drawDamage()
+            this.drawLasers()
+        } else {
+            this.drawGameOver()
+        }
     }
     addLaser(laserDirection) {
         if (this.lasers.length < this.maxLasers) {
@@ -142,6 +169,9 @@ export default class Game {
                 KeyCodes[event.keyCode] = false
             }
         }
+    }
+    isAlive() {
+        return this.alive
     }
     init() {
         this.bindKeys()

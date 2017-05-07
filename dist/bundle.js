@@ -321,7 +321,10 @@ var Game = function () {
             x: 0,
             y: this.canvas.height - 20
         };
+        this.damage = 0;
+        this.alive = true;
         this.tower = new _Tower2.default(this.canvas.width, this.canvas.height);
+        this.init();
     }
 
     _createClass(Game, [{
@@ -347,7 +350,8 @@ var Game = function () {
                     });
                 }
                 if (_Utils2.default.isColliding(aerial, _this.tower)) {
-                    _this.score -= 5;
+                    _this.damage += 1;
+                    _this.alive = _this.damage <= 10;
                     aerial.setPosition();
                 } else {
                     aerial.move();
@@ -383,6 +387,24 @@ var Game = function () {
             this.context.fillText('Score: ' + this.score, 10, 20);
         }
     }, {
+        key: 'formatDamage',
+        value: function formatDamage() {
+            return this.damage >= 10 ? '0%' : 10 - this.damage + '0%';
+        }
+    }, {
+        key: 'drawDamage',
+        value: function drawDamage() {
+            this.context.font = "bold 12px 'Press Start 2P'";
+            if (this.damage < 4) {
+                this.context.fillStyle = 'green';
+            } else if (this.damage < 7) {
+                this.context.fillStyle = 'yellow';
+            } else {
+                this.context.fillStyle = 'red';
+            }
+            this.context.fillText('Health: ' + this.formatDamage(), 10, 40);
+        }
+    }, {
         key: 'drawLasers',
         value: function drawLasers() {
             var _this3 = this;
@@ -412,14 +434,25 @@ var Game = function () {
             });
         }
     }, {
+        key: 'drawGameOver',
+        value: function drawGameOver() {
+            this.context.font = "bold 16px 'Press Start 2P'";
+            this.context.fillText('Game Over Man!', (this.canvas.width - 100) / 2, (this.canvas.height - 20) / 2, 100, 20);
+        }
+    }, {
         key: 'draw',
         value: function draw() {
             this.clearCanvas();
             this.drawBackground();
-            this.drawTower();
-            this.drawAerials();
             this.drawScore();
-            this.drawLasers();
+            if (this.alive) {
+                this.drawTower();
+                this.drawAerials();
+                this.drawDamage();
+                this.drawLasers();
+            } else {
+                this.drawGameOver();
+            }
         }
     }, {
         key: 'addLaser',
@@ -475,6 +508,11 @@ var Game = function () {
             };
         }
     }, {
+        key: 'isAlive',
+        value: function isAlive() {
+            return this.alive;
+        }
+    }, {
         key: 'init',
         value: function init() {
             var _this6 = this;
@@ -522,13 +560,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 __webpack_require__(5);
 
-var canvas = document.getElementById('game-canvas');
-
-var game = new _Game2.default(canvas);
-game.init();
+var game = new _Game2.default(document.getElementById('game-canvas'));
 
 var playGame = function playGame() {
-    requestAnimationFrame(playGame);
+    if (game.isAlive()) {
+        requestAnimationFrame(playGame);
+    }
     game.requestFrame();
 };
 

@@ -2,13 +2,12 @@ require('../css/game.css')
 
 import Game from './Game'
 
-const canvas = document.getElementById('game-canvas');
-
-const game = new Game(canvas);
-game.init()
+const game = new Game(document.getElementById('game-canvas'));
 
 const playGame = () => {
-    requestAnimationFrame(playGame)
+    if (game.isAlive()) {
+        requestAnimationFrame(playGame)
+    }
     game.requestFrame()
 }
 
