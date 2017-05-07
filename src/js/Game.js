@@ -116,14 +116,9 @@ export default class Game {
         if (this.lasers.length >= this.maxLasers) {
            return
         }
-        let laser = null;
-
-        if (KeyCodes[88]) laser = new LaserUp(this.tower, this.canvas.width)
-        else if (KeyCodes[67]) laser = new LaserRight(this.tower, this.canvas.width)
-        else if (KeyCodes[90]) laser = new LaserLeft(this.tower, this.canvas.width)
-        else return
-
-        this.lasers.push(laser)
+        if (KeyCodes[88]) this.lasers.push(new LaserUp(this.tower, this.canvas.width))
+        else if (KeyCodes[67]) this.lasers.push(new LaserRight(this.tower, this.canvas.width))
+        else if (KeyCodes[90]) this.lasers.push(new LaserLeft(this.tower, this.canvas.width))
     }
     bindKeys() {
         document.onkeydown = (event) => {

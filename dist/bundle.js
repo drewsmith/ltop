@@ -456,11 +456,7 @@ var Game = function () {
             if (this.lasers.length >= this.maxLasers) {
                 return;
             }
-            var laser = null;
-
-            if (_Utils.KeyCodes[88]) laser = new _Laser.LaserUp(this.tower, this.canvas.width);else if (_Utils.KeyCodes[67]) laser = new _Laser.LaserRight(this.tower, this.canvas.width);else if (_Utils.KeyCodes[90]) laser = new _Laser.LaserLeft(this.tower, this.canvas.width);else return;
-
-            this.lasers.push(laser);
+            if (_Utils.KeyCodes[88]) this.lasers.push(new _Laser.LaserUp(this.tower, this.canvas.width));else if (_Utils.KeyCodes[67]) this.lasers.push(new _Laser.LaserRight(this.tower, this.canvas.width));else if (_Utils.KeyCodes[90]) this.lasers.push(new _Laser.LaserLeft(this.tower, this.canvas.width));
         }
     }, {
         key: 'bindKeys',
