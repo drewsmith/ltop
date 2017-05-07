@@ -2,13 +2,23 @@ require('../css/game.css')
 
 import Game from './Game'
 
-const game = new Game(document.getElementById('game-canvas'));
+const canvas = document.getElementById('game-canvas')
+let game = new Game(canvas);
 
 const playGame = () => {
     if (game.isAlive()) {
         requestAnimationFrame(playGame)
+    } else {
+        canvas.addEventListener('click', newGame)
     }
+
     game.requestFrame()
+}
+
+const newGame = () => {
+    canvas.removeEventListener('click', newGame)
+    game = new Game(canvas)
+    playGame()
 }
 
 window.onload = playGame

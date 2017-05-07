@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/Users/drew/Desktop/drewsmith.github.io/dist";
+/******/ 	__webpack_require__.p = "C:\\Users\\DrEnder\\Desktop\\drew\\drewsmith.github.io/dist";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 6);
@@ -241,19 +241,24 @@ exports.default = Tower;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-var Utils = {};
+var Utils = exports.Utils = {
+    isColliding: function isColliding(firstObject, secondObject) {
+        return !(secondObject.x > firstObject.x + firstObject.width || secondObject.x + secondObject.width < firstObject.x || secondObject.y > firstObject.y + firstObject.height || secondObject.y + secondObject.height < firstObject.y);
+    },
 
-Utils.isColliding = function (firstObject, secondObject) {
-    return !(secondObject.x > firstObject.x + firstObject.width || secondObject.x + secondObject.width < firstObject.x || secondObject.y > firstObject.y + firstObject.height || secondObject.y + secondObject.height < firstObject.y);
+    newImage: function newImage(path) {
+        var img = new Image();
+        img.src = !(function webpackMissingModule() { var e = new Error("Cannot find module \".\""); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+        return img;
+    }
 };
 
-Utils.newImage = function (path) {
-    var img = new Image();
-    img.src = !(function webpackMissingModule() { var e = new Error("Cannot find module \".\""); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-    return img;
-};
-
-exports.default = Utils;
+var KeyCodes = exports.KeyCodes = {
+    39: false,
+    37: false,
+    88: false, // X
+    67: false, // C
+    90: false };
 
 /***/ }),
 /* 4 */
@@ -290,20 +295,11 @@ var _Images = __webpack_require__(0);
 
 var _Utils = __webpack_require__(3);
 
-var _Utils2 = _interopRequireDefault(_Utils);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var KeyCodes = {
-    39: false,
-    37: false,
-    88: false, // X
-    67: false, // C
-    90: false };
 
 var Game = function () {
     function Game(canvas) {
@@ -342,16 +338,16 @@ var Game = function () {
             this.aerials.forEach(function (aerial) {
                 if (_this.lasers.length > 0) {
                     _this.lasers.forEach(function (laser) {
-                        if (_Utils2.default.isColliding(aerial, laser)) {
+                        if (_Utils.Utils.isColliding(aerial, laser)) {
                             aerial.setPosition();
                             _this.removeLaser(laser);
                             _this.score += 10;
                         }
                     });
                 }
-                if (_Utils2.default.isColliding(aerial, _this.tower)) {
+                if (_Utils.Utils.isColliding(aerial, _this.tower)) {
                     _this.damage += 1;
-                    _this.alive = _this.damage <= 10;
+                    _this.alive = _this.damage < 10;
                     aerial.setPosition();
                 } else {
                     aerial.move();
@@ -437,7 +433,7 @@ var Game = function () {
         key: 'drawGameOver',
         value: function drawGameOver() {
             this.context.font = "bold 16px 'Press Start 2P'";
-            this.context.fillText('Game Over Man!', (this.canvas.width - 100) / 2, (this.canvas.height - 20) / 2, 100, 20);
+            this.context.fillText('Game Over Man! Click to replay.', (this.canvas.width - 200) / 2, (this.canvas.height - 20) / 2, 200, 20);
         }
     }, {
         key: 'draw',
@@ -456,10 +452,15 @@ var Game = function () {
         }
     }, {
         key: 'addLaser',
-        value: function addLaser(laserDirection) {
-            if (this.lasers.length < this.maxLasers) {
-                this.lasers.push(new _Laser.Laser(this.tower, laserDirection, this.canvas.width));
+        value: function addLaser() {
+            if (this.lasers.length >= this.maxLasers) {
+                return;
             }
+            var laser = null;
+
+            if (_Utils.KeyCodes[88]) laser = new _Laser.LaserUp(this.tower, this.canvas.width);else if (_Utils.KeyCodes[67]) laser = new _Laser.LaserRight(this.tower, this.canvas.width);else if (_Utils.KeyCodes[90]) laser = new _Laser.LaserLeft(this.tower, this.canvas.width);else return;
+
+            this.lasers.push(laser);
         }
     }, {
         key: 'bindKeys',
@@ -467,43 +468,21 @@ var Game = function () {
             var _this5 = this;
 
             document.onkeydown = function (event) {
-                if (event.keyCode in KeyCodes) {
-                    KeyCodes[event.keyCode] = true;
+                if (event.keyCode in _Utils.KeyCodes) {
+                    _Utils.KeyCodes[event.keyCode] = true;
                 }
 
-                if (KeyCodes[39]) {
-
+                if (_Utils.KeyCodes[39]) {
                     _this5.tower.moveLeft();
-
-                    if (KeyCodes[88]) {
-                        _this5.addLaser(_Laser.Direction.UP);
-                    } else if (KeyCodes[67]) {
-                        _this5.addLaser(_Laser.Direction.RIGHT);
-                    } else if (KeyCodes[90]) {
-                        _this5.addLaser(_Laser.Direction.LEFT);
-                    }
-                } else if (KeyCodes[37]) {
-
+                } else if (_Utils.KeyCodes[37]) {
                     _this5.tower.moveRight();
-                    if (KeyCodes[88]) {
-                        _this5.addLaser(_Laser.Direction.UP);
-                    } else if (KeyCodes[67]) {
-                        _this5.addLaser(_Laser.Direction.RIGHT);
-                    } else if (KeyCodes[90]) {
-                        _this5.addLaser(_Laser.Direction.LEFT);
-                    }
-                } else if (KeyCodes[88]) {
-                    _this5.addLaser(_Laser.Direction.UP);
-                } else if (KeyCodes[67]) {
-                    _this5.addLaser(_Laser.Direction.RIGHT);
-                } else if (KeyCodes[90]) {
-                    _this5.addLaser(_Laser.Direction.LEFT);
                 }
+                _this5.addLaser();
             };
 
             document.onkeyup = function (event) {
-                if (event.keyCode in KeyCodes) {
-                    KeyCodes[event.keyCode] = false;
+                if (event.keyCode in _Utils.KeyCodes) {
+                    _Utils.KeyCodes[event.keyCode] = false;
                 }
             };
         }
@@ -560,13 +539,23 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 __webpack_require__(5);
 
-var game = new _Game2.default(document.getElementById('game-canvas'));
+var canvas = document.getElementById('game-canvas');
+var game = new _Game2.default(canvas);
 
 var playGame = function playGame() {
     if (game.isAlive()) {
         requestAnimationFrame(playGame);
+    } else {
+        canvas.addEventListener('click', newGame);
     }
+
     game.requestFrame();
+};
+
+var newGame = function newGame() {
+    canvas.removeEventListener('click', newGame);
+    game = new _Game2.default(canvas);
+    playGame();
 };
 
 window.onload = playGame;
@@ -581,7 +570,7 @@ window.onload = playGame;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.Laser = exports.Direction = undefined;
+exports.LaserLeft = exports.LaserRight = exports.LaserUp = exports.Laser = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -591,65 +580,37 @@ var _Tower2 = _interopRequireDefault(_Tower);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-var Direction = exports.Direction = {
-    LEFT: 1,
-    UP: 2,
-    RIGHT: 3
-};
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Laser = exports.Laser = function () {
     function Laser(tower) {
-        var laserDirection = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Direction.UP;
-        var canvasWidth = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+        var canvasWidth = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
 
         _classCallCheck(this, Laser);
 
+        this.x = 0;
         this.y = 0;
-        this.width = 4;
-        this.height = 20;
-        this.x = tower.x + Math.ceil((tower.width - this.width) / 2);
-        this.y = tower.y - this.height;
+        this.width = 0;
+        this.height = 0;
         this.speed = 10;
-        this.direction = laserDirection;
         this.maxWidth = canvasWidth;
+        this.towerCoords = {
+            x: tower.x,
+            y: tower.y,
+            width: tower.width,
+            height: tower.height
+        };
     }
 
     _createClass(Laser, [{
-        key: 'moveUp',
-        value: function moveUp(cb) {
-            this.y -= this.speed;
-            if (this.y <= this.height) {
-                cb();
-            }
-        }
-    }, {
-        key: 'moveLeft',
-        value: function moveLeft(cb) {
-            this.x -= this.speed;
-            if (this.x <= this.width) {
-                cb();
-            }
-        }
-    }, {
-        key: 'moveRight',
-        value: function moveRight(cb) {
-            this.x += this.speed;
-            if (this.x >= this.maxWidth - this.width) {
-                cb();
-            }
-        }
-    }, {
-        key: 'move',
-        value: function move(cb) {
-            if (this.direction === Direction.UP) {
-                this.moveUp(cb);
-            } else if (this.direction === Direction.LEFT) {
-                this.moveLeft(cb);
-            } else if (this.direction === Direction.RIGHT) {
-                this.moveRight(cb);
-            }
+        key: 'setPosition',
+        value: function setPosition() {
+            this.x = this.towerCoords.x + Math.ceil((this.towerCoords.width - this.width) / 2);
+            this.y = this.towerCoords.y - this.height;
         }
     }, {
         key: 'draw',
@@ -661,6 +622,87 @@ var Laser = exports.Laser = function () {
 
     return Laser;
 }();
+
+var LaserUp = exports.LaserUp = function (_Laser) {
+    _inherits(LaserUp, _Laser);
+
+    function LaserUp(tower, canvasWidth) {
+        _classCallCheck(this, LaserUp);
+
+        var _this = _possibleConstructorReturn(this, (LaserUp.__proto__ || Object.getPrototypeOf(LaserUp)).call(this, tower, canvasWidth));
+
+        _this.width = 4;
+        _this.height = 20;
+        _this.setPosition();
+        return _this;
+    }
+
+    _createClass(LaserUp, [{
+        key: 'move',
+        value: function move(cb) {
+            this.y -= this.speed;
+            if (this.y <= this.height) {
+                cb();
+            }
+        }
+    }]);
+
+    return LaserUp;
+}(Laser);
+
+var LaserRight = exports.LaserRight = function (_Laser2) {
+    _inherits(LaserRight, _Laser2);
+
+    function LaserRight(tower, canvasWidth) {
+        _classCallCheck(this, LaserRight);
+
+        var _this2 = _possibleConstructorReturn(this, (LaserRight.__proto__ || Object.getPrototypeOf(LaserRight)).call(this, tower, canvasWidth));
+
+        _this2.width = 20;
+        _this2.height = 4;
+        _this2.setPosition();
+        return _this2;
+    }
+
+    _createClass(LaserRight, [{
+        key: 'move',
+        value: function move(cb) {
+            this.x += this.speed;
+            if (this.x >= this.maxWidth - this.width) {
+                cb();
+            }
+        }
+    }]);
+
+    return LaserRight;
+}(Laser);
+
+var LaserLeft = exports.LaserLeft = function (_Laser3) {
+    _inherits(LaserLeft, _Laser3);
+
+    function LaserLeft(tower, canvasWidth) {
+        _classCallCheck(this, LaserLeft);
+
+        var _this3 = _possibleConstructorReturn(this, (LaserLeft.__proto__ || Object.getPrototypeOf(LaserLeft)).call(this, tower, canvasWidth));
+
+        _this3.width = 20;
+        _this3.height = 4;
+        _this3.setPosition();
+        return _this3;
+    }
+
+    _createClass(LaserLeft, [{
+        key: 'move',
+        value: function move(cb) {
+            this.x -= this.speed;
+            if (this.x <= this.width) {
+                cb();
+            }
+        }
+    }]);
+
+    return LaserLeft;
+}(Laser);
 
 /***/ }),
 /* 8 */
