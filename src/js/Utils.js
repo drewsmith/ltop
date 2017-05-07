@@ -9,4 +9,10 @@ Utils.isColliding = (firstObject, secondObject) => {
         secondObject.y + secondObject.height < firstObject.y);
 }
 
-export default Utils;
+Utils.newImage = (path) => {
+    let img = new Image();
+    img.src = require(path);
+    return img;
+}
+
+export default Utils
