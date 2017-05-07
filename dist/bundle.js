@@ -60,14 +60,49 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "C:\\Users\\DrEnder\\Desktop\\drew\\drewsmith.github.io/dist";
+/******/ 	__webpack_require__.p = "/Users/drew/Desktop/drewsmith.github.io/dist";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+__webpack_require__(13);
+__webpack_require__(12);
+__webpack_require__(15);
+__webpack_require__(16);
+__webpack_require__(14);
+__webpack_require__(11);
+
+var skyImg = exports.skyImg = new Image();
+skyImg.src = 'dist/img/sky.png';
+
+var platformImg = exports.platformImg = new Image();
+platformImg.src = 'dist/img/platform.png';
+
+var oliveImg = exports.oliveImg = new Image();
+oliveImg.src = 'dist/img/olive.png';
+
+var pizzaSliceImg = exports.pizzaSliceImg = new Image();
+pizzaSliceImg.src = 'dist/img/slicesprite.jpg';
+
+var pizzaImg = exports.pizzaImg = new Image();
+pizzaImg.src = 'dist/img/wholepizza.png';
+
+var towerImg = exports.towerImg = new Image();
+towerImg.src = 'dist/img/towersprite.png';
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79,7 +114,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Utils = __webpack_require__(2);
+var _Utils = __webpack_require__(3);
 
 var _Utils2 = _interopRequireDefault(_Utils);
 
@@ -135,7 +170,7 @@ var Enemy = function () {
 exports.default = Enemy;
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -147,10 +182,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _Images = __webpack_require__(0);
 
-var towerImg = new Image();
-towerImg.src = __webpack_require__(14);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Tower = function () {
     function Tower() {
@@ -164,7 +198,7 @@ var Tower = function () {
         this.width = 50;
         this.y = maxHeight - this.height;
         this.x = 0;
-        this.img = towerImg;
+        this.img = _Images.towerImg;
         this.speed = 10;
         this.maxWidth = maxWidth;
     }
@@ -198,7 +232,7 @@ var Tower = function () {
 exports.default = Tower;
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -222,7 +256,7 @@ Utils.newImage = function (path) {
 exports.default = Utils;
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -234,25 +268,27 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Pizza = __webpack_require__(8);
+var _Pizza = __webpack_require__(9);
 
 var _Pizza2 = _interopRequireDefault(_Pizza);
 
-var _Olive = __webpack_require__(7);
+var _Olive = __webpack_require__(8);
 
 var _Olive2 = _interopRequireDefault(_Olive);
 
-var _Slice = __webpack_require__(9);
+var _Slice = __webpack_require__(10);
 
 var _Slice2 = _interopRequireDefault(_Slice);
 
-var _Tower = __webpack_require__(1);
+var _Tower = __webpack_require__(2);
 
 var _Tower2 = _interopRequireDefault(_Tower);
 
-var _Laser = __webpack_require__(6);
+var _Laser = __webpack_require__(7);
 
-var _Utils = __webpack_require__(2);
+var _Images = __webpack_require__(0);
+
+var _Utils = __webpack_require__(3);
 
 var _Utils2 = _interopRequireDefault(_Utils);
 
@@ -261,12 +297,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var skyImg = new Image();
-skyImg.src = __webpack_require__(12);
-
-var platformImg = new Image();
-platformImg.src = __webpack_require__(11);
 
 var KeyCodes = {
     39: false,
@@ -364,8 +394,8 @@ var Game = function () {
     }, {
         key: 'drawBackground',
         value: function drawBackground() {
-            this.context.drawImage(skyImg, 0, 0, this.canvas.width, this.canvas.height);
-            this.context.drawImage(platformImg, this.platform.x, this.platform.y, this.platform.width, this.platform.height);
+            this.context.drawImage(_Images.skyImg, 0, 0, this.canvas.width, this.canvas.height);
+            this.context.drawImage(_Images.platformImg, this.platform.x, this.platform.y, this.platform.width, this.platform.height);
         }
     }, {
         key: 'drawTower',
@@ -472,25 +502,25 @@ var Game = function () {
 exports.default = Game;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _Game = __webpack_require__(3);
+var _Game = __webpack_require__(4);
 
 var _Game2 = _interopRequireDefault(_Game);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-__webpack_require__(4);
+__webpack_require__(5);
 
 var canvas = document.getElementById('game-canvas');
 
@@ -505,7 +535,7 @@ var playGame = function playGame() {
 window.onload = playGame;
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -518,7 +548,7 @@ exports.Laser = exports.Direction = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Tower = __webpack_require__(1);
+var _Tower = __webpack_require__(2);
 
 var _Tower2 = _interopRequireDefault(_Tower);
 
@@ -596,7 +626,7 @@ var Laser = exports.Laser = function () {
 }();
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -606,9 +636,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _Enemy2 = __webpack_require__(0);
+var _Enemy2 = __webpack_require__(1);
 
 var _Enemy3 = _interopRequireDefault(_Enemy2);
+
+var _Images = __webpack_require__(0);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -617,9 +649,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var oliveImg = new Image();
-oliveImg.src = __webpack_require__(10);
 
 var Olive = function (_Enemy) {
     _inherits(Olive, _Enemy);
@@ -632,7 +661,7 @@ var Olive = function (_Enemy) {
         _this.width = 20;
         _this.height = 20;
         _this.points = -5;
-        _this.img = oliveImg;
+        _this.img = _Images.oliveImg;
         return _this;
     }
 
@@ -640,52 +669,6 @@ var Olive = function (_Enemy) {
 }(_Enemy3.default);
 
 exports.default = Olive;
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _Enemy2 = __webpack_require__(0);
-
-var _Enemy3 = _interopRequireDefault(_Enemy2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var pizzaImg = new Image();
-pizzaImg.src = __webpack_require__(15);
-
-var Pizza = function (_Enemy) {
-    _inherits(Pizza, _Enemy);
-
-    function Pizza(canvasWidth, canvasHeight) {
-        _classCallCheck(this, Pizza);
-
-        var _this = _possibleConstructorReturn(this, (Pizza.__proto__ || Object.getPrototypeOf(Pizza)).call(this, canvasWidth, canvasHeight));
-
-        _this.width = 30;
-        _this.height = 30;
-        _this.points = 5;
-        _this.img = pizzaImg;
-        return _this;
-    }
-
-    return Pizza;
-}(_Enemy3.default);
-
-exports.default = Pizza;
 
 /***/ }),
 /* 9 */
@@ -698,9 +681,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _Enemy2 = __webpack_require__(0);
+var _Enemy2 = __webpack_require__(1);
 
 var _Enemy3 = _interopRequireDefault(_Enemy2);
+
+var _Images = __webpack_require__(0);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -710,8 +695,50 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var pizzaSliceImg = new Image();
-pizzaSliceImg.src = __webpack_require__(13);
+var Pizza = function (_Enemy) {
+    _inherits(Pizza, _Enemy);
+
+    function Pizza(canvasWidth, canvasHeight) {
+        _classCallCheck(this, Pizza);
+
+        var _this = _possibleConstructorReturn(this, (Pizza.__proto__ || Object.getPrototypeOf(Pizza)).call(this, canvasWidth, canvasHeight));
+
+        _this.width = 30;
+        _this.height = 30;
+        _this.points = 5;
+        _this.img = _Images.pizzaImg;
+        return _this;
+    }
+
+    return Pizza;
+}(_Enemy3.default);
+
+exports.default = Pizza;
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _Enemy2 = __webpack_require__(1);
+
+var _Enemy3 = _interopRequireDefault(_Enemy2);
+
+var _Images = __webpack_require__(0);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Slice = function (_Enemy) {
     _inherits(Slice, _Enemy);
@@ -724,7 +751,7 @@ var Slice = function (_Enemy) {
         _this.width = 30;
         _this.height = 30;
         _this.points = 5;
-        _this.img = pizzaSliceImg;
+        _this.img = _Images.pizzaSliceImg;
         return _this;
     }
 
@@ -734,43 +761,43 @@ var Slice = function (_Enemy) {
 exports.default = Slice;
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "/img/olive.png";
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "/img/platform.png";
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "/img/sky.png";
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "/img/slicesprite.jpg";
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "/img/towersprite.png";
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "/img/wholepizza.png";
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 function webpackEmptyContext(req) {
@@ -779,7 +806,7 @@ function webpackEmptyContext(req) {
 webpackEmptyContext.keys = function() { return []; };
 webpackEmptyContext.resolve = webpackEmptyContext;
 module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 16;
+webpackEmptyContext.id = 17;
 
 /***/ })
 /******/ ]);

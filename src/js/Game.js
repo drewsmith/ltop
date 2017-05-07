@@ -5,13 +5,9 @@ import Olive from './Olive'
 import Slice from './Slice'
 import Tower from './Tower'
 import { Direction, Laser } from './Laser'
+import { skyImg, platformImg } from './Images'
 import Utils from './Utils'
 
-const skyImg = new Image();
-skyImg.src = require('../img/sky.png');
-
-const platformImg = new Image();
-platformImg.src = require('../img/platform.png');
 
 const KeyCodes = {
     39: false,
@@ -44,16 +40,16 @@ export default class Game {
     }
     moveAerials() {
         this.aerials.forEach(aerial => {
-            if(this.lasers.length > 0) {
+            if (this.lasers.length > 0) {
                 this.lasers.forEach(laser => {
-                  if(Utils.isColliding(aerial, laser)) {
-                      aerial.setPosition()
-                      this.removeLaser(laser)
-                      this.score += 10;
-                  }
+                    if (Utils.isColliding(aerial, laser)) {
+                        aerial.setPosition()
+                        this.removeLaser(laser)
+                        this.score += 10;
+                    }
                 })
             }
-            if(Utils.isColliding(aerial, this.tower)) {
+            if (Utils.isColliding(aerial, this.tower)) {
                 this.score -= 5
                 aerial.setPosition()
             } else {
@@ -88,7 +84,7 @@ export default class Game {
         this.tower.draw(this.context)
     }
     drawAerials() {
-        this.aerials.forEach(aerial => aerial.draw(this.context)); 
+        this.aerials.forEach(aerial => aerial.draw(this.context));
     }
     draw() {
         this.clearCanvas()
@@ -99,13 +95,13 @@ export default class Game {
         this.drawLasers()
     }
     addLaser(laserDirection) {
-        if(this.lasers.length < this.maxLasers) {
+        if (this.lasers.length < this.maxLasers) {
             this.lasers.push(new Laser(this.tower, laserDirection, this.canvas.width))
         }
     }
     bindKeys() {
         document.onkeydown = (event) => {
-            if(event.keyCode in KeyCodes) {
+            if (event.keyCode in KeyCodes) {
                 KeyCodes[event.keyCode] = true;
             }
 
@@ -113,7 +109,7 @@ export default class Game {
 
                 this.tower.moveLeft()
 
-                if(KeyCodes[88]) {
+                if (KeyCodes[88]) {
                     this.addLaser(Direction.UP)
                 } else if (KeyCodes[67]) {
                     this.addLaser(Direction.RIGHT)
@@ -124,7 +120,7 @@ export default class Game {
             } else if (KeyCodes[37]) {
 
                 this.tower.moveRight()
-                if(KeyCodes[88]) {
+                if (KeyCodes[88]) {
                     this.addLaser(Direction.UP)
                 } else if (KeyCodes[67]) {
                     this.addLaser(Direction.RIGHT)
@@ -142,7 +138,7 @@ export default class Game {
         }
 
         document.onkeyup = (event) => {
-            if(event.keyCode in KeyCodes) {
+            if (event.keyCode in KeyCodes) {
                 KeyCodes[event.keyCode] = false
             }
         }

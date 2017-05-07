@@ -1,9 +1,7 @@
 'use strict'
 
 import Enemy from './Enemy'
-
-const pizzaImg = new Image();
-pizzaImg.src = require('../img/wholepizza.png');
+import { pizzaImg } from './Images'
 
 export default class Pizza extends Enemy {
     constructor(canvasWidth, canvasHeight) {

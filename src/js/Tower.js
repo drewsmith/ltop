@@ -1,7 +1,6 @@
 'use strict'
 
-const towerImg = new Image();
-towerImg.src = require('../img/towersprite.png')
+import { towerImg } from './Images'
 
 export default class Tower {
     constructor(maxWidth = 0, maxHeight = 0) {

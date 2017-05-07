@@ -1,9 +1,7 @@
 'use strict'
 
 import Enemy from './Enemy'
-
-const oliveImg = new Image();
-oliveImg.src = require('../img/olive.png');
+import { oliveImg } from './Images'
 
 export default class Olive extends Enemy {
     constructor(canvasWidth, canvasHeight) {
