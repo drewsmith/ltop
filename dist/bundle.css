@@ -2,6 +2,8 @@ body {
   text-align: center;
   background: #222;
   font-family: 'Press Start 2P', cursive;
+  margin: 0;
+  padding: 0;
 }
 #title {
   margin: 20px 0;
@@ -19,11 +21,8 @@ body {
   -webket-border-radius: 10px;
 }
 #game-canvas {
-  margin: auto auto;
-  border: 1px dotted #999;
-  border-radius: 8px;
-  -moz-border-radius: 8px;
-  -webket-border-radius: 8px;
+  min-width: 600px;
+  height: calc(80%);
 }
 #instructions {
   margin: 10px 0 0 0;

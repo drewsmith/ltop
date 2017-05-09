@@ -114,7 +114,7 @@ export default class Game {
     }
     addLaser() {
         if (this.lasers.length >= this.maxLasers) {
-           return
+            return
         }
         if (KeyCodes[88]) this.lasers.push(new LaserUp(this.tower, this.canvas.width))
         else if (KeyCodes[67]) this.lasers.push(new LaserRight(this.tower, this.canvas.width))
@@ -146,9 +146,9 @@ export default class Game {
     init() {
         this.bindKeys()
         this.aerials = [
-            ...Array.from(new Array(10), () => new Slice(this.canvas.width, this.canvas.height)),
-            ...Array.from(new Array(10), () => new Olive(this.canvas.width, this.canvas.height)),
-            ...Array.from(new Array(3), () => new Pizza(this.canvas.width, this.canvas.height))
+            ...Array.from(new Array(20), () => new Slice(this.canvas.width, this.canvas.height)),
+            ...Array.from(new Array(20), () => new Olive(this.canvas.width, this.canvas.height)),
+            ...Array.from(new Array(20), () => new Pizza(this.canvas.width, this.canvas.height))
         ]
 
         this.aerials.forEach(aerial => aerial.setPosition())

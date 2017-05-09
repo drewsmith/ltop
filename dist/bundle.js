@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "C:\\Users\\DrEnder\\Desktop\\drew\\drewsmith.github.io/dist";
+/******/ 	__webpack_require__.p = "/Users/drew/Desktop/drewsmith.github.io/dist";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 6);
@@ -138,7 +138,7 @@ var Enemy = function () {
         this.img = null;
         this.maxWidth = canvasWidth;
         this.maxHeight = canvasHeight - 20;
-        this.speeds = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6];
+        this.speeds = [0.3, 0.4, 0.5, 0.6, 0.7, 0.8];
     }
 
     _createClass(Enemy, [{
@@ -194,7 +194,7 @@ var Tower = function () {
         _classCallCheck(this, Tower);
 
         this.maxHeight = maxHeight;
-        this.height = 160;
+        this.height = 100;
         this.width = 50;
         this.y = maxHeight - this.height;
         this.x = 0;
@@ -493,11 +493,11 @@ var Game = function () {
             var _this6 = this;
 
             this.bindKeys();
-            this.aerials = [].concat(_toConsumableArray(Array.from(new Array(10), function () {
+            this.aerials = [].concat(_toConsumableArray(Array.from(new Array(20), function () {
                 return new _Slice2.default(_this6.canvas.width, _this6.canvas.height);
-            })), _toConsumableArray(Array.from(new Array(10), function () {
+            })), _toConsumableArray(Array.from(new Array(20), function () {
                 return new _Olive2.default(_this6.canvas.width, _this6.canvas.height);
-            })), _toConsumableArray(Array.from(new Array(3), function () {
+            })), _toConsumableArray(Array.from(new Array(20), function () {
                 return new _Pizza2.default(_this6.canvas.width, _this6.canvas.height);
             })));
 
@@ -536,6 +536,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 __webpack_require__(5);
 
 var canvas = document.getElementById('game-canvas');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight - 150;
+
 var game = new _Game2.default(canvas);
 
 var playGame = function playGame() {

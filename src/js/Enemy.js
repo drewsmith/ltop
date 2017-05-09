@@ -13,7 +13,7 @@ export default class Enemy {
         this.img = null;
         this.maxWidth = canvasWidth;
         this.maxHeight = canvasHeight - 20;
-        this.speeds = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6];
+        this.speeds = [0.3, 0.4, 0.5, 0.6, 0.7, 0.8];
     }
     setPosition() {
         this.x = Math.random() * (this.maxWidth - this.width);

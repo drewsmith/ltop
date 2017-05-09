@@ -5,7 +5,7 @@ import { towerImg } from './Images'
 export default class Tower {
     constructor(maxWidth = 0, maxHeight = 0) {
         this.maxHeight = maxHeight;
-        this.height = 160;
+        this.height = 100;
         this.width = 50;
         this.y = maxHeight - this.height;
         this.x = 0;
