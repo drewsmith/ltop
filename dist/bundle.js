@@ -537,7 +537,9 @@ __webpack_require__(5);
 
 var canvas = document.getElementById('game-canvas');
 canvas.width = window.innerWidth;
-canvas.height = window.innerHeight - 150;
+
+var projectedHeight = window.innerHeight - 150;
+canvas.height = projectedHeight > 500 ? projectedHeight : 500;
 
 var game = new _Game2.default(canvas);
 

@@ -4,7 +4,9 @@ import Game from './Game'
 
 const canvas = document.getElementById('game-canvas')
 canvas.width = window.innerWidth
-canvas.height = window.innerHeight - 150
+
+let projectedHeight = window.innerHeight - 150;
+canvas.height = projectedHeight > 500 ? projectedHeight : 500;
 
 let game = new Game(canvas);
 
