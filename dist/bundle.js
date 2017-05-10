@@ -557,7 +557,15 @@ var newGame = function newGame() {
     playGame();
 };
 
-window.onload = playGame;
+var instructions = document.getElementById('instructions');
+var startGameButton = document.getElementById('start-game-btn');
+var startGameWrapper = document.getElementById('start-game-wrapper');
+
+startGameButton.addEventListener('click', function (e) {
+    instructions.style.display = 'block';
+    startGameWrapper.remove();
+    playGame();
+});
 
 /***/ }),
 /* 7 */

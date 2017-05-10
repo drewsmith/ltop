@@ -24,4 +24,12 @@ const newGame = () => {
     playGame()
 }
 
-window.onload = playGame
+const instructions = document.getElementById('instructions')
+const startGameButton = document.getElementById('start-game-btn')
+const startGameWrapper = document.getElementById('start-game-wrapper')
+
+startGameButton.addEventListener('click', (e) => {
+    instructions.style.display = 'block'
+    startGameWrapper.remove()
+    playGame()
+})
